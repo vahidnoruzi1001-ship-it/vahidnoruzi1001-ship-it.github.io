@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الو وام | الو سیم‌کارت</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6fa;font-family:Tahoma,Arial;color:#17233b}
+header{background:linear-gradient(135deg,#101b35,#263c65);color:white;padding:30px 18px;text-align:center}
+.logo{background:#e6b957;color:#101b35;display:inline-block;padding:15px 25px;border-radius:15px;font-size:25px;font-weight:bold}
+h1{font-size:25px}
+header p{line-height:2;color:#e0e6f0}
+main{max-width:650px;margin:25px auto;padding:15px}
+.card{background:white;border-radius:20px;padding:24px;box-shadow:0 8px 30px #0001}
+h2{text-align:center}
+label{display:block;margin:20px 0 9px;font-weight:bold}
+input{width:100%;padding:15px;border:1px solid #ccd3df;border-radius:10px;font-size:18px;font-family:Tahoma}
+button{width:100%;margin-top:22px;padding:15px;background:#dcb34f;color:#17233b;border:0;border-radius:12px;font-size:17px;font-weight:bold}
+.results{margin-top:25px;background:#152441;color:white;padding:20px;border-radius:15px}
+.results div{padding:13px 0;border-bottom:1px solid #ffffff33}
+.results strong{color:#f2c75e;float:left}
+.contact{display:block;text-align:center;margin-top:22px;background:#16834b;color:white;padding:16px;border-radius:12px;text-decoration:none;font-weight:bold}
+footer{text-align:center;padding:25px;color:#68748a;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">الو وام</div>
+<h1>الو وام | الو سیم‌کارت</h1>
+<p>وام با ضمانت سیم‌کارت<br>محاسبه سریع و آسان اقساط وام</p>
+</header>
+<main>
+<div class="card">
+<h2>ماشین حساب اقساط وام</h2>
+
+<label>مبلغ وام به تومان</label>
+<input id="money" type="text" inputmode="numeric" value="۵۰۰۰۰۰۰۰">
+
+<label>تعداد اقساط (ماه)</label>
+<input id="month" type="text" inputmode="numeric" value="۱۲">
+
+<label>درصد سود ماهانه</label>
+<input id="rate" type="text" inputmode="decimal" value="۲">
+
+<div class="results">
+<div>مبلغ هر قسط: <strong id="installment">—</strong></div>
+<div>اصل وام: <strong id="principal">—</strong></div>
+<div>مجموع سود: <strong id="interest">—</strong></div>
+<div>مجموع بازپرداخت: <strong id="total">—</strong></div>
+</div>
+
+<a class="contact" href="tel:09126857310">تماس و درخواست وام: ۰۹۱۲۶۸۵۷۳۱۰</a>
+</div>
+</main>
+<footer>تمام حقوق متعلق به الو وام | الو سیم‌کارت است</footer>
+
+<script>
+function latin(x){
+return String(x).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+.replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+.replace(/[,٬]/g,'').replace('٫','.');
+}
+function money(x){
+return Math.round(x).toLocaleString('fa-IR')+' تومان';
+}
+function calc(){
+let p=Number(latin(document.getElementById('money').value))||0;
+let m=Number(latin(document.getElementById('month').value))||1;
+let r=Number(latin(document.getElementById('rate').value))||0;
+m=Math.max(1,Math.floor(m));
+let interest=p*r/100*m;
+let total=p+interest;
+document.getElementById('installment').textContent=money(total/m);
+document.getElementById('principal').textContent=money(p);
+document.getElementById('interest').textContent=money(interest);
+document.getElementById('total').textContent=money(total);
+}
+['money','month','rate'].forEach(id=>{
+document.getElementById(id).addEventListener('input',calc);
+});
+calc();
+</script>
+</body>
+</html>
